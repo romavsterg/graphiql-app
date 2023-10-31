@@ -1,36 +1,22 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import '../styles/Main.css';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
+import Header from './Header';
+import Result from './Result';
 
-type Props = {
-  books: {
-    title: string;
-    author: string;
-    id: string;
-  }[];
-  isLoading: boolean;
+const Main = () => {
+  const name = useParams();
+  const navigate = useNavigate();
+
+  const SetQuery = (Query: string) => {
+    navigate(`/search/${Query}`);
+  };
+  return (
+    <>
+      <Header setQuery={SetQuery} />
+      <Result />
+    </>
+  );
 };
 
-export default class Main extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="container">
-        {this.props.isLoading ? (
-          <span className="loader"></span>
-        ) : (
-          <div className="books-cards">
-            {this.props.books.map((book) => (
-              <div key={book.id} className="book-card">
-                <h3 className="book-title">{book.title}</h3>
-                <p className="book-author">{book.author}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+export default Main;

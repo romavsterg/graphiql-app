@@ -1,47 +1,25 @@
 import React from 'react';
-import Header from './components/Header';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
 import Main from './components/Main';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from './components/ErrorFallback';
+import ErrorPage from './Pages/ErrorPage';
 
-type State = {
-  books: {
-    title: string;
-    author: string;
-    id: string;
-  }[];
-  isLoading: boolean;
-  error: boolean;
-};
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Main />} errorElement={<ErrorPage />}>
+      <Route path="search" element={<Main />}>
+        <Route path=":query" element={<Main />} />
+      </Route>
+    </Route>
+  )
+);
 
-type books = {
-  books: {
-    title: string;
-    author: string;
-    id: string;
-  }[];
-};
-
-class App extends React.Component {
-  state: State = { books: [], isLoading: false, error: false };
-  setBooks = (books: books) => {
-    this.setState({ books: books });
-  };
-  setLoading = (isLoading: boolean) => {
-    this.setState({ isLoading: isLoading });
-  };
-  createError = () => {
-    throw new Error('test');
-  };
-  render() {
-    return (
-      <ErrorBoundary fallback={<ErrorFallback />}>
-        <Header setBooks={this.setBooks} setLoading={this.setLoading}></Header>
-        <Main books={this.state.books} isLoading={this.state.isLoading}></Main>
-        <button onClick={this.createError}>Error</button>
-      </ErrorBoundary>
-    );
-  }
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;
