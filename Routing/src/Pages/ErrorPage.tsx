@@ -5,12 +5,8 @@ export default function ErrorFallback() {
   const error = useRouteError();
   let errorMessage: string;
 
-  const createError = () => {
-    throw new Error('test');
-  };
-
   if (isRouteErrorResponse(error)) {
-    errorMessage = error?.message || error.statusText;
+    errorMessage = error.statusText;
   } else if (error instanceof Error) {
     errorMessage = error.message;
   } else if (typeof error === 'string') {

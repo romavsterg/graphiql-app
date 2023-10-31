@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 type Props = {
   setQuery: (query: string) => void;
@@ -17,8 +16,7 @@ export default function Header(props: Props) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.setQuery(search)
-    console.log(search);
+    props.setQuery(search);
   };
 
   return (

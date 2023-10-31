@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/Main.css';
-import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Result from './Result';
 
 const Main = () => {
-  const name = useParams();
   const navigate = useNavigate();
 
   const SetQuery = (Query: string) => {
