@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/Main.css';
-import { useParams } from 'react-router-dom';
+import '../styles/Result.css';
+import { useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 type book = {
@@ -11,6 +11,7 @@ type book = {
 
 const Result = () => {
   const query = useParams().query;
+  const page = Number(useLocation().search.replace(/\?page=/, ''));
   const [isLoading, setIsLoading] = useState(false);
   const [Books, setBooks] = useState<book[]>([]);
 
@@ -18,9 +19,9 @@ const Result = () => {
     const searchBooks = async () => {
       setIsLoading(true);
       const res = await axios.get(
-        query !== ''
-          ? `https://openlibrary.org/search.json?q=${query}&limit=6`
-          : 'https://openlibrary.org/search.json?q=*&limit=6'
+        query
+          ? `https://openlibrary.org/search.json?q=${query}&limit=6&page=${page}`
+          : `https://openlibrary.org/search.json?q=*&limit=6&page=${page}`
       );
       const data = res.data.docs;
       const books: book[] = data.map((book: book) => {
@@ -34,7 +35,7 @@ const Result = () => {
       setBooks(books);
     };
     searchBooks();
-  }, [query]);
+  }, [query, page]);
 
   return (
     <div className="container">

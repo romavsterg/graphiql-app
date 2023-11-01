@@ -1,0 +1,23 @@
+.pagination {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.pagination-arrow {
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: large;
+    color: #5e788f;
+    background-color: rgb(105, 152, 192);
+    border: #5e788f 2px solid;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    cursor: pointer;
+}

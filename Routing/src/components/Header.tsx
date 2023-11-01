@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-type Props = {
-  setQuery: (query: string) => void;
-};
-
-export default function Header(props: Props) {
+export default function Header() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState<string>(
     localStorage.getItem('search') || ''
   );
@@ -16,12 +14,11 @@ export default function Header(props: Props) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.setQuery(search);
+    navigate(`/search/${search}?page=1`);
   };
 
   return (
     <header>
-      header
       <nav>
         <form onSubmit={handleSubmit}>
           <input
