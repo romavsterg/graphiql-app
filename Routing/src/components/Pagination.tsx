@@ -8,11 +8,11 @@ const Pagination = () => {
   const navigate = useNavigate();
 
   const prevPage = () => {
-    navigate(`/search/${params.query}?page=${page - 1}`);
+    navigate(`/search/${params?.query || '*'}?page=${page - 1}`);
   };
 
   const nextPage = () => {
-    navigate(`/search/${params.query}?page=${page + 1}`);
+    navigate(`/search/${params?.query || '*'}?page=${page + 1}`);
   };
 
   return (
