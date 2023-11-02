@@ -3,16 +3,25 @@ import '../styles/Pagination.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const Pagination = () => {
-  const page = Number(useLocation().search.replace(/\?page=/, ''));
+  const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
+  const page = queryes ? Number(queryes[0]) : 1;
   const params = useParams();
   const navigate = useNavigate();
 
   const prevPage = () => {
-    navigate(`/search/${params?.query || '*'}?page=${page - 1}`);
+    navigate(
+      `/search/${params.query ? params.query.replace('/', '%2F') : '*'}?page=${
+        page - 1
+      }`
+    );
   };
 
   const nextPage = () => {
-    navigate(`/search/${params?.query || '*'}?page=${page + 1}`);
+    navigate(
+      `/search/${params.query ? params.query.replace('/', '%2F') : '*'}?page=${
+        page + 1
+      }`
+    );
   };
 
   return (
