@@ -74,7 +74,9 @@ const Result = () => {
   }, [search, page, loacation, navigate, details]);
 
   const handleClick = () => {
-    navigate(`/Components/search/${search}?page=${page}`);
+    if (details) {
+      navigate(`/Components/search/${search}?page=${page}`);
+    }
   };
 
   return (
@@ -83,7 +85,7 @@ const Result = () => {
         <span className="loader"></span>
       ) : (
         <>
-          <div className="books-cards">
+          <div className="books-cards" onClick={handleClick}>
             {Books.map((book) => (
               <Link
                 to={`/Components/search/${book.title.replace(
