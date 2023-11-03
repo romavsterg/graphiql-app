@@ -14,7 +14,9 @@ export default function Header() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate(`/search/${search ? search.replace('/', '%2F') : '*'}?page=1`);
+    navigate(
+      `/Components/search/${search ? search.replace('/', '%2F') : '*'}?page=1`
+    );
   };
 
   return (

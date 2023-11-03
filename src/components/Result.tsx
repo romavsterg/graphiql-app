@@ -74,7 +74,7 @@ const Result = () => {
   }, [search, page, loacation, navigate, details]);
 
   const handleClick = () => {
-    navigate(`/search/${search}?page=${page}`);
+    navigate(`/Components/search/${search}?page=${page}`);
   };
 
   return (
@@ -86,7 +86,7 @@ const Result = () => {
           <div className="books-cards">
             {Books.map((book) => (
               <Link
-                to={`/search/${book.title.replace(
+                to={`/Components/search/${book.title.replace(
                   '/',
                   '%2F'
                 )}?page=${page}&details=${book.key}`}

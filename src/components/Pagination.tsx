@@ -10,17 +10,17 @@ const Pagination = () => {
 
   const prevPage = () => {
     navigate(
-      `/search/${params.query ? params.query.replace('/', '%2F') : '*'}?page=${
-        page - 1
-      }`
+      `/Components/search/${
+        params.query ? params.query.replace('/', '%2F') : '*'
+      }?page=${page - 1}`
     );
   };
 
   const nextPage = () => {
     navigate(
-      `/search/${params.query ? params.query.replace('/', '%2F') : '*'}?page=${
-        page + 1
-      }`
+      `/Components/search/${
+        params.query ? params.query.replace('/', '%2F') : '*'
+      }?page=${page + 1}`
     );
   };
 
