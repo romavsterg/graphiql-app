@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../styles/Result.css';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-
-type book = {
-  title: string;
-  author_name: string;
-  key: string;
-};
-
-type details = {
-  contributor: string;
-  language: string;
-  place: string;
-};
+import { book, details } from '../@types/types';
+import { Context } from '../Context/context';
 
 const Result = () => {
+  console.log(useContext(Context));
   const navigate = useNavigate();
   const loacation = useLocation();
   const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
