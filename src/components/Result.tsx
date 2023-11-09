@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import '../styles/Result.css';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Context } from '../Context/context';
 import { getBooks, getDetails } from '../utils/getBooks';
+import BookCard from './BookCard';
+import DetailedCard from './DetailedCard';
 
 const Result = () => {
   const context = useContext(Context);
@@ -64,34 +66,18 @@ const Result = () => {
         <>
           <div className="books-cards" onClick={handleClick}>
             {context?.books.map((book) => (
-              <Link
-                to={`/Components/search/${book.title.replace(
-                  '/',
-                  '%2F'
-                )}?page=${page}&count=${count}&details=${book.key}`}
-                key={book.key}
-                className="book-card"
-              >
-                <h3 className="book-title">{book.title}</h3>
-                <p className="book-author">{book.author_name}</p>
-              </Link>
+              <BookCard key={book.key} book={book} count={count} page={page} />
             ))}
           </div>
           {context?.details && (
-            <div className="details">
-              <button className="close-details" onClick={handleClick}>
-                Close details
-              </button>
-              {areDetailsLoading ? (
-                <span className="loader"></span>
-              ) : (
-                <>
-                  <h4>Contributor: {context?.details.contributor}</h4>
-                  <h5>Language: {context?.details.language}</h5>
-                  <h5>Place: {context?.details.place}</h5>
-                </>
-              )}
-            </div>
+            <DetailedCard
+              areDetailsLoading={areDetailsLoading}
+              details={context.details}
+              page={page}
+              handleClick={handleClick}
+              search={search ? search : '*'}
+              count={count}
+            />
           )}
         </>
       )}
