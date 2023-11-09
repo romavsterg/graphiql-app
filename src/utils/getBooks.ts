@@ -1,18 +1,18 @@
 import { book, details } from './../@types/types';
 import axios from 'axios';
 
-const getData = async (search = '*', page = 1) => {
+const getData = async (search = '*', page = 1, count = 1) => {
   const res = await axios.get(
-    `https://openlibrary.org/search.json?q=${decodeURI(search)}&limit=6&page=${
-      page || 1
-    }`
+    `https://openlibrary.org/search.json?q=${decodeURI(
+      search
+    )}&limit=${count}&page=${page || 1}`
   );
   const data = res.data.docs;
   return data;
 };
 
-export const getBooks = async (search = '*', page: number) => {
-  const data = await getData(search, page);
+export const getBooks = async (search = '*', page: number, count: number) => {
+  const data = await getData(search, page, count);
   const books: book[] = data.map((book: book) => {
     return {
       title: book.title,

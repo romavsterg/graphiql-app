@@ -9,7 +9,8 @@ const Result = () => {
   const navigate = useNavigate();
   const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
   const page = queryes ? Number(queryes[0]) : 1;
-  const details = queryes ? queryes[1] : '';
+  const count = queryes ? Number(queryes[1]) : 6;
+  const details = queryes ? queryes[2] : '';
   const search = useParams().query;
 
   const lastPage = useRef<number | null>(null);
@@ -27,7 +28,7 @@ const Result = () => {
     ) {
       const getData = async () => {
         setAreBooksLoading(true);
-        const res = await getBooks(search, page);
+        const res = await getBooks(search, page, count);
         context?.SetBooks(res);
         setAreBooksLoading(false);
         if (details) {
@@ -46,7 +47,12 @@ const Result = () => {
 
   const handleClick = () => {
     if (details) {
-      navigate(`/Components/search/${search}?page=${page}`);
+      context?.SetDetails(null);
+      navigate(
+        `/Components/search/${
+          search ? search.replace('/', '%2F') : '*'
+        }?page=${page}&count=${count}`
+      );
     }
   };
 
@@ -62,7 +68,7 @@ const Result = () => {
                 to={`/Components/search/${book.title.replace(
                   '/',
                   '%2F'
-                )}?page=${page}&details=${book.key}`}
+                )}?page=${page}&count=${count}&details=${book.key}`}
                 key={book.key}
                 className="book-card"
               >
