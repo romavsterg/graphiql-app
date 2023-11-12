@@ -21,14 +21,15 @@ export default function Header() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    context ? (context.search = search) : search;
-    context ? (context.countItems = countItems) : countItems;
     event.preventDefault();
     const newUrl = `/Components/search/${
       search ? search.replace('/', '%2F') : '*'
     }?page=1&count=${countItems}`;
     if (newUrl !== location.href.replace(/[\w\/:]*(?=\/Components)/i, '')) {
       navigate(newUrl);
+      context ? (context.search = search) : search;
+      context ? (context.countItems = countItems) : countItems;
+      console.log('object');
     }
   };
 
