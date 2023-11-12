@@ -14,7 +14,9 @@ const Pagination = () => {
     navigate(
       `/Components/search/${
         params.query ? params.query.replace('/', '%2F') : '*'
-      }?page=${page - 1}&count=${countItems}`
+      }?page=${page - 1}&count=${countItems || 6}${
+        details ? `&details=${details}` : ``
+      }`
     );
   };
 
@@ -22,7 +24,9 @@ const Pagination = () => {
     navigate(
       `/Components/search/${
         params.query ? params.query.replace('/', '%2F') : '*'
-      }?page=${page + 1}&count=${countItems}&details=${details}`
+      }?page=${page + 1}&count=${countItems || 6}${
+        details ? `&details=${details}` : ``
+      }`
     );
   };
 

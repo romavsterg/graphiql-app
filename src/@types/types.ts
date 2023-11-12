@@ -11,8 +11,8 @@ export type details = {
 } | null;
 
 export type contextType = {
+  search: string;
+  countItems: number;
   books: book[];
-  SetBooks: (Books: book[]) => void;
   details: details;
-  SetDetails: (Details: details) => void;
 };

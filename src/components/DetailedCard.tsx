@@ -4,7 +4,6 @@ type Props = {
   details: details;
   search: string;
   page: number;
-  count: number;
   handleClick: () => void;
   areDetailsLoading: boolean;
 };

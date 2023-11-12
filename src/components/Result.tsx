@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import '../styles/Result.css';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Context } from '../Context/context';
 import { getBooks, getDetails } from '../utils/getBooks';
 import BookCard from './BookCard';
@@ -11,13 +11,11 @@ const Result = () => {
   const navigate = useNavigate();
   const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
   const page = queryes ? Number(queryes[0]) : 1;
-  const count = queryes ? Number(queryes[1]) : 6;
   const details = queryes ? queryes[2] : '';
-  const search = useParams().query;
 
   const lastPage = useRef<number | null>(null);
-  const lastDetails = useRef<string | null>(null);
   const lastSearch = useRef<string | null | undefined>(null);
+  const lastCountItems = useRef<number | null | undefined>(null);
 
   const [areBooksLoading, setAreBooksLoading] = useState(false);
   const [areDetailsLoading, setAreDetailsLoading] = useState(false);
@@ -25,35 +23,39 @@ const Result = () => {
   useEffect(() => {
     if (
       page !== lastPage.current ||
-      details !== lastDetails.current ||
-      search !== lastSearch.current
+      context?.search !== lastSearch.current ||
+      context?.countItems !== lastCountItems.current
     ) {
       const getData = async () => {
         setAreBooksLoading(true);
-        const res = await getBooks(search, page, count);
-        context?.SetBooks(res);
+        const res = await getBooks(
+          context?.search || '*',
+          page,
+          context?.countItems || 6
+        );
+        context ? (context.books = res) : res;
         setAreBooksLoading(false);
         if (details) {
           setAreDetailsLoading(true);
           const res = await getDetails(details);
-          context?.SetDetails(res);
+          context ? (context.details = res) : res;
           setAreDetailsLoading(false);
         }
       };
-      lastPage.current = page;
-      lastDetails.current = details;
-      lastSearch.current = search;
       getData();
     }
+    lastPage.current = page;
+    lastSearch.current = context?.search;
+    lastCountItems.current = context?.countItems;
   });
 
   const handleClick = () => {
     if (details) {
-      context?.SetDetails(null);
+      context ? (context.details = null) : null;
       navigate(
         `/Components/search/${
-          search ? search.replace('/', '%2F') : '*'
-        }?page=${page}&count=${count}`
+          context?.search ? context?.search.replace('/', '%2F') : '*'
+        }?page=${page}&count=${context?.countItems}`
       );
     }
   };
@@ -61,22 +63,30 @@ const Result = () => {
   return (
     <div className="container">
       {areBooksLoading ? (
-        <span className="loader"></span>
+        <span className="loader">loading...</span>
       ) : (
         <>
-          <div className="books-cards" onClick={handleClick}>
-            {context?.books.map((book) => (
-              <BookCard key={book.key} book={book} count={count} page={page} />
-            ))}
-          </div>
-          {context?.details && (
+          {context?.books[0] ? (
+            <ul className="books-cards" onClick={handleClick}>
+              {context?.books.map((book) => (
+                <BookCard
+                  key={book.key}
+                  book={book}
+                  count={context?.countItems || 6}
+                  page={page}
+                />
+              ))}
+            </ul>
+          ) : (
+            <h4>No books found</h4>
+          )}
+          {details && context && (
             <DetailedCard
               areDetailsLoading={areDetailsLoading}
-              details={context.details}
+              details={context?.details}
               page={page}
               handleClick={handleClick}
-              search={search ? search : '*'}
-              count={count}
+              search={context?.search || '*'}
             />
           )}
         </>
