@@ -6,6 +6,9 @@ export default defineConfig({
   base: 'Components',
   plugins: [react()],
   test: {
+    coverage: {
+      reporter: ['text', 'html'],
+    },
     environment: 'jsdom',
     setupFiles: ['./src/tests/setup.ts'],
     globals: true,
