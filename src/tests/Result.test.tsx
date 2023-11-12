@@ -44,7 +44,7 @@ describe('<Result />', () => {
 });
 describe('404', () => {
   test('renders a <NotFound page when navigating to invalid route', () => {
-    const { container } = render(
+    render(
       <BrowserRouter>
         <Routes>
           <Route index path="/" element={<Main />} />
