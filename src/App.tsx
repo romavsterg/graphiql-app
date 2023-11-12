@@ -7,13 +7,17 @@ import {
 } from 'react-router-dom';
 import Main from './components/Main';
 import ErrorPage from './Pages/ErrorPage';
+import NotFound from './Pages/NotFound';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/Components" element={<Main />} errorElement={<ErrorPage />}>
-      <Route path="search" element={<Main />}>
-        <Route path=":query" element={<Main />} />
+    <Route path="/">
+      <Route path="Components" element={<Main />} errorElement={<ErrorPage />}>
+        <Route path="search" element={<Main />}>
+          <Route path=":query" index element={<Main />} />
+        </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );

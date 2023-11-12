@@ -48,19 +48,10 @@ const Result = () => {
         }
       };
       getData();
-      console.log(context);
     }
     lastPage.current = page;
     lastSearch.current = search;
     lastCountItems.current = context?.countItems;
-    console.log(
-      lastPage,
-      page,
-      lastSearch,
-      search,
-      lastCountItems,
-      context?.countItems
-    );
   });
 
   const handleClick = () => {
