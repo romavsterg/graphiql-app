@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from '../Pages/NotFound';
 import Main from '../components/Main';
 
-describe('<Result />', () => {
-  // here will be test for redux
-});
+// describe('<Result />', () => {
+// here will be test for redux
+// });
 describe('404', () => {
   test('renders a <NotFound page when navigating to invalid route', () => {
     render(
