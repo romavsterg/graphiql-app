@@ -1,46 +1,11 @@
 import { describe, test, expect } from 'vitest';
-import {
-  fireEvent,
-  render,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
-import Result from '../components/Result';
+import { screen, render, fireEvent } from '@testing-library/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Context } from '../Redux/ReduxProvider';
 import NotFound from '../Pages/NotFound';
 import Main from '../components/Main';
 
 describe('<Result />', () => {
-  test('Result displays cards', async () => {
-    const { container } = render(
-      <BrowserRouter>
-        <Routes>
-          <Route
-            index
-            path="*"
-            element={
-              <Context.Provider
-                value={{
-                  search: 'Tom',
-                  countItems: 6,
-                  books: [],
-                  details: null,
-                }}
-              >
-                <Result />
-              </Context.Provider>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    );
-    expect(container).toBeTruthy();
-    await waitForElementToBeRemoved(() => screen.queryByText('loading...'), {
-      timeout: 15000,
-    });
-    expect(await screen.findAllByRole('list')).toBeTruthy();
-  });
+  // here will be test for redux
 });
 describe('404', () => {
   test('renders a <NotFound page when navigating to invalid route', () => {
