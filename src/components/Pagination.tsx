@@ -1,30 +1,30 @@
-import React from 'react';
 import '../styles/Pagination.css';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useGetParams } from '../hooks/useGetParams';
+import { useActions } from '../hooks/useActions';
 
 const Pagination = () => {
-  const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
-  const page = queryes ? Number(queryes[0]) : 1;
-  const countItems = queryes ? Number(queryes[1]) : 6;
-  const details = queryes ? queryes[2] : '';
-  const params = useParams();
   const navigate = useNavigate();
 
+  const { search, countItems, details, page } = useGetParams();
+  const { SetPage } = useActions();
+
+  const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
+  const Page = queryes ? Number(queryes[0]) : 1;
+
   const prevPage = () => {
+    SetPage(Page - 1);
     navigate(
-      `/Components/search/${
-        params.query ? params.query.replace('/', '%2F') : '*'
-      }?page=${page - 1}&count=${countItems || 6}${
+      `/Components/search/${search}?page=${Page - 1}&count=${countItems}${
         details ? `&details=${details}` : ``
       }`
     );
   };
 
   const nextPage = () => {
+    SetPage(Page + 1);
     navigate(
-      `/Components/search/${
-        params.query ? params.query.replace('/', '%2F') : '*'
-      }?page=${page + 1}&count=${countItems || 6}${
+      `/Components/search/${search}?page=${Page + 1}&count=${countItems}${
         details ? `&details=${details}` : ``
       }`
     );

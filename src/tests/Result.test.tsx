@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 import Result from '../components/Result';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Context } from '../Context/context';
+import { Context } from '../Redux/ReduxProvider';
 import NotFound from '../Pages/NotFound';
 import Main from '../components/Main';
 

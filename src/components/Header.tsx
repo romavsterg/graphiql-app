@@ -1,16 +1,12 @@
-import React, { useState, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Context } from '../Context/context';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useActions } from '../hooks/useActions';
 
 export default function Header() {
   const navigate = useNavigate();
-  const context = useContext(Context);
-  const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
-  const CountItems = queryes ? Number(queryes[1]) : 6;
-  const [countItems, setCountItems] = useState<number>(CountItems);
-  const [search, setSearch] = useState<string>(
-    localStorage.getItem('search') || ''
-  );
+  const [search, setSearch] = useState(localStorage.getItem('search') || '');
+  const [countItems, setCountItems] = useState(6);
+  const { SetSearch, SetCountItems } = useActions();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -20,16 +16,16 @@ export default function Header() {
     setCountItems(Number(e.target.value));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const newUrl = `/Components/search/${
-      search ? search.replace('/', '%2F') : '*'
-    }?page=1&count=${countItems}`;
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    SetCountItems(countItems);
+    SetSearch(search);
+    const newUrl = `/Components/search/${search.replace(
+      '/',
+      '%2F'
+    )}?page=1&count=${countItems}`;
     if (newUrl !== location.href.replace(/[\w\/:]*(?=\/Components)/i, '')) {
       navigate(newUrl);
-      context ? (context.search = search) : search;
-      context ? (context.countItems = countItems) : countItems;
-      console.log('object');
     }
   };
 

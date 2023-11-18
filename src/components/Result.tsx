@@ -1,97 +1,75 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
 import '../styles/Result.css';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Context } from '../Context/context';
-import { getBooks, getDetails } from '../utils/getBooks';
-import BookCard from './BookCard';
+import { useNavigate } from 'react-router-dom';
 import DetailedCard from './DetailedCard';
-import { book } from '../@types/types';
+import { useGetParams } from '../hooks/useGetParams';
+import { useActions } from '../hooks/useActions';
+import { useGetProductsQuery } from '../api/api';
+import ProductCard from './ProductCard';
+import { product } from '../@types/types';
 
 const Result = () => {
-  const context = useContext(Context);
   const navigate = useNavigate();
-  const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
-  const page = queryes ? Number(queryes[0]) : 1;
-  const details = queryes ? queryes[2] : '';
-  const search = useParams().query;
 
-  const [Books, setBooks] = useState<book[]>([]);
-
-  const lastPage = useRef<number | null>(null);
-  const lastSearch = useRef<string | null | undefined>(null);
-  const lastCountItems = useRef<number | null | undefined>(null);
-
-  const [areBooksLoading, setAreBooksLoading] = useState(false);
-  const [areDetailsLoading, setAreDetailsLoading] = useState(false);
-
-  useEffect(() => {
-    if (
-      page !== lastPage.current ||
-      search !== lastSearch.current ||
-      context?.countItems !== lastCountItems.current
-    ) {
-      const getData = async () => {
-        setAreBooksLoading(true);
-        const res = await getBooks(
-          search || '*',
-          page,
-          context?.countItems || 6
-        );
-        context ? (context.books = res) : res;
-        setBooks(res);
-        setAreBooksLoading(false);
-        if (details) {
-          setAreDetailsLoading(true);
-          const res = await getDetails(details);
-          context ? (context.details = res) : res;
-          setAreDetailsLoading(false);
-        }
-      };
-      getData();
-    }
-    lastPage.current = page;
-    lastSearch.current = search;
-    lastCountItems.current = context?.countItems;
+  const { SetDetails } = useActions();
+  const { search, countItems, details, page } = useGetParams();
+  const response = useGetProductsQuery({
+    name: search,
+    count: countItems,
+    page: page,
   });
+
+  const res: {
+    isLoading: boolean;
+    data?: { products: product[] } | null | undefined;
+  } = {
+    isLoading: response.isLoading,
+    data: response.data,
+  };
 
   const handleClick = () => {
     if (details) {
-      context ? (context.details = null) : null;
+      SetDetails('');
       navigate(
         `/Components/search/${
-          context?.search ? context?.search.replace('/', '%2F') : '*'
-        }?page=${page}&count=${context?.countItems}`
+          search ? search.replace('/', '%2F') : '*'
+        }?page=${page}&count=${countItems}`
       );
     }
   };
 
   return (
     <div className="container">
-      {areBooksLoading ? (
+      {res.isLoading ? (
         <span className="loader">loading...</span>
       ) : (
         <>
-          {Books[0] ? (
-            <ul className="books-cards" onClick={handleClick}>
-              {Books.map((book) => (
-                <BookCard
-                  key={book.key}
-                  book={book}
-                  count={context?.countItems || 6}
+          {res.data && res.data.products ? (
+            <ul className="product-cards" onClick={handleClick}>
+              {res.data.products.map((product: product) => (
+                <ProductCard
+                  key={product.id}
+                  product={{
+                    id: product.id,
+                    title: product.title,
+                    images: product.images,
+                    brand: product.brand,
+                  }}
+                  count={countItems || 6}
                   page={page}
                 />
               ))}
             </ul>
           ) : (
-            <h4>No books found</h4>
+            <h4>No products found</h4>
           )}
-          {details && context && (
+          {details && res.data && (
             <DetailedCard
-              areDetailsLoading={areDetailsLoading}
-              details={context?.details}
-              page={page}
+              id={
+                res.data.products.filter(
+                  (product: product) => product.id === details
+                )[0].id
+              }
               handleClick={handleClick}
-              search={context?.search || '*'}
             />
           )}
         </>
