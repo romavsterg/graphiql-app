@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { product } from '../@types/types';
-import { useActions } from '../hooks/useActions';
+import { useActions } from '../Redux/hooks/useActions';
 
 type Props = { product: product; page: number; count: number };
 
@@ -10,7 +10,7 @@ export default function ProductCard(Props: Props) {
   return (
     <>
       {Props.product && Props.product.title && Props.product.images && (
-        <li className="product-card">
+        <li className="product-card" data-testid="product-card">
           <Link
             to={`/Components/search/${Props.product.title.replace(
               '/',

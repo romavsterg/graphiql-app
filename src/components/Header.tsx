@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useActions } from '../hooks/useActions';
+import { useActions } from '../Redux/hooks/useActions';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -32,16 +32,17 @@ export default function Header() {
   return (
     <header>
       <nav>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-testid="form">
           <input
             type="text"
             value={search}
             onChange={handleSearchChange}
-            placeholder="type a name of the book"
+            placeholder="type a name of the product"
             data-testid="search"
             name="search"
           />
           <input
+            data-testid="count"
             type="number"
             name="countItems"
             value={countItems}

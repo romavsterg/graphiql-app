@@ -1,9 +1,9 @@
 import '../styles/Result.css';
 import { useNavigate } from 'react-router-dom';
 import DetailedCard from './DetailedCard';
-import { useGetParams } from '../hooks/useGetParams';
-import { useActions } from '../hooks/useActions';
-import { useGetProductsQuery } from '../api/api';
+import { useGetParams } from '../Redux/hooks/useGetParams';
+import { useActions } from '../Redux/hooks/useActions';
+import { useGetProductsQuery } from '../Redux/api/api';
 import ProductCard from './ProductCard';
 import { product } from '../@types/types';
 
@@ -17,6 +17,8 @@ const Result = () => {
     count: countItems,
     page: page,
   });
+
+  // console.log(search, countItems, details, page);
 
   const res: {
     isLoading: boolean;

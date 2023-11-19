@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { detailsStore } from '../@types/types';
+import { detailsStore } from '../../@types/types';
 
-const initialState: detailsStore = { details: null };
+export const initialState: detailsStore = { details: null };
 
 export const booksSlice = createSlice({
   name: 'details',

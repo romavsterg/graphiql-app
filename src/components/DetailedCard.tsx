@@ -1,5 +1,5 @@
 import { product } from '../@types/types';
-import { useGetDetailsQuery } from '../api/api';
+import { useGetDetailsQuery } from '../Redux/api/api';
 
 type Props = {
   id?: string;
@@ -18,7 +18,7 @@ export default function DetailedCard(Props: Props) {
   };
 
   return (
-    <div className="details">
+    <div className="details" data-testid="details-card">
       <button className="close-details" onClick={Props.handleClick}>
         Close details
       </button>

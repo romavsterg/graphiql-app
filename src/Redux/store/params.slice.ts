@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   search: localStorage.getItem('search') || '',
   page: 1,
   details: null,
   countItems: 6,
 };
 
-export const searchSlice = createSlice({
-  name: 'search',
+export const paramsSlice = createSlice({
+  name: 'params',
   initialState,
   reducers: {
     SetSearch: (state, { payload: search }) => {
@@ -26,4 +26,4 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { actions, reducer } = searchSlice;
+export const { actions, reducer } = paramsSlice;

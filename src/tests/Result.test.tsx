@@ -1,23 +1,56 @@
 import { describe, test, expect } from 'vitest';
-import { screen, render, fireEvent } from '@testing-library/react';
+import {
+  screen,
+  render,
+  waitForElementToBeRemoved,
+  fireEvent,
+} from '@testing-library/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import NotFound from '../Pages/NotFound';
-import Main from '../components/Main';
+import Result from '../components/Result';
+import { Provider } from 'react-redux';
+import { createStore } from '../utils/testUtils';
+import { rootReducer } from '../Redux/store/store';
 
-// describe('<Result />', () => {
-// here will be test for redux
-// });
-describe('404', () => {
-  test('renders a <NotFound page when navigating to invalid route', () => {
+describe('<Result/>', () => {
+  test('Loads <Result/> with products', async () => {
+    const store = createStore(rootReducer);
     render(
       <BrowserRouter>
         <Routes>
-          <Route index path="/" element={<Main />} />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/"
+            element={
+              <Provider store={store}>
+                <Result />
+              </Provider>
+            }
+          />
         </Routes>
       </BrowserRouter>
     );
-    fireEvent.click(screen.getByText('go 404'));
-    expect(screen.findByText('Return to main')).toBeTruthy;
+    await waitForElementToBeRemoved(screen.getByText('loading...'));
+    screen.getAllByRole('listitem').forEach((element) => {
+      expect(element).toBeInTheDocument();
+    });
+    expect(store.getState()).toBeTruthy();
+  });
+  test('Loads <Result/> with products and <Details/> with details', async () => {
+    const store = createStore(rootReducer);
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Result />} />
+            <Route path="/Components/search:query" element={<Result />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    );
+    await waitForElementToBeRemoved(screen.getByText('loading...'));
+    screen.getAllByRole('listitem').forEach((element) => {
+      expect(element).toBeInTheDocument();
+    });
+    expect(store.getState()).toBeTruthy();
+    fireEvent.click(screen.getAllByTestId('product-card')[0]);
   });
 });

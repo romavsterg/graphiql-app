@@ -1,7 +1,7 @@
 import '../styles/Pagination.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useGetParams } from '../hooks/useGetParams';
-import { useActions } from '../hooks/useActions';
+import { useGetParams } from '../Redux/hooks/useGetParams';
+import { useActions } from '../Redux/hooks/useActions';
 
 const Pagination = () => {
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ const Pagination = () => {
   return (
     <div className="pagination">
       <button
+        data-testid="prev-arrow"
         disabled={page <= 1}
         className="pagination-arrow"
         onClick={prevPage}
@@ -40,7 +41,11 @@ const Pagination = () => {
         &#60;
       </button>
       <h2>{page}</h2>
-      <button className="pagination-arrow" onClick={nextPage}>
+      <button
+        data-testid="next-arrow"
+        className="pagination-arrow"
+        onClick={nextPage}
+      >
         &#62;
       </button>
     </div>
