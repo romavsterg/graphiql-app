@@ -1,41 +1,49 @@
-import '../styles/Pagination.css';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useGetParams } from '../Redux/hooks/useGetParams';
 import { useActions } from '../Redux/hooks/useActions';
+import { useRouter } from 'next/router';
+import styles from '../styles/Pagination.module.css';
+import { useEffect } from 'react';
 
 const Pagination = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const { search, countItems, details, page } = useGetParams();
   const { SetPage } = useActions();
 
-  const queryes = useLocation().search.match(/(?<=\w\=)\w*/g);
-  const Page = queryes ? Number(queryes[0]) : 1;
+  useEffect(() => {
+    if (router.isReady && typeof router.query.page === 'string') {
+      SetPage(Number(router.query.page));
+    }
+  }, [SetPage, router]);
 
   const prevPage = () => {
-    SetPage(Page - 1);
-    navigate(
-      `/Components/search/${search}?page=${Page - 1}&count=${countItems}${
+    SetPage(page - 1);
+    router.push(
+      `/Components/search/${search}?page=${page - 1}&count=${countItems}${
         details ? `&details=${details}` : ``
-      }`
+      }`,
+      undefined,
+      { shallow: true }
     );
   };
 
   const nextPage = () => {
-    SetPage(Page + 1);
-    navigate(
-      `/Components/search/${search}?page=${Page + 1}&count=${countItems}${
+    SetPage(page + 1);
+    router.push(
+      `/Components/search/${search}?page=${page + 1}&count=${countItems}${
         details ? `&details=${details}` : ``
-      }`
+      }`,
+      undefined,
+      { shallow: true }
     );
   };
 
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       <button
         data-testid="prev-arrow"
         disabled={page <= 1}
-        className="pagination-arrow"
+        className={styles['pagination-arrow']}
         onClick={prevPage}
       >
         &#60;
@@ -43,7 +51,7 @@ const Pagination = () => {
       <h2>{page}</h2>
       <button
         data-testid="next-arrow"
-        className="pagination-arrow"
+        className={styles['pagination-arrow']}
         onClick={nextPage}
       >
         &#62;

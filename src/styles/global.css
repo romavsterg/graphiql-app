@@ -15,8 +15,8 @@ body {
     padding: 6vh 5vw;
 }
 
-#root {
-    height: 100%;
+#__next {
+    height: 84vh;
 }
 
 .link {

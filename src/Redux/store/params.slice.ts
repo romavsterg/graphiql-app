@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
-  search: localStorage.getItem('search') || '',
+  search: '',
   page: 1,
   details: null,
   countItems: 6,

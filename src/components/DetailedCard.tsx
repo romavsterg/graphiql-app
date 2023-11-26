@@ -1,5 +1,7 @@
 import { product } from '../@types/types';
 import { useGetDetailsQuery } from '../Redux/api/api';
+import detailsStyles from '../styles/DetailedCard.module.css';
+import resultlStyles from '../styles/Result.module.css';
 
 type Props = {
   id?: string;
@@ -18,12 +20,15 @@ export default function DetailedCard(Props: Props) {
   };
 
   return (
-    <div className="details" data-testid="details-card">
-      <button className="close-details" onClick={Props.handleClick}>
+    <div className={detailsStyles.details} data-testid="details-card">
+      <button
+        className={detailsStyles['close-details']}
+        onClick={Props.handleClick}
+      >
         Close details
       </button>
       {res.isLoading ? (
-        <span className="loader"></span>
+        <span className={resultlStyles.loader}></span>
       ) : (
         <>
           {res.data ? (

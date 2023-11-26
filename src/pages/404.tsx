@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
     <div>
       <h1>NotFound</h1>
-      <Link to="/Components" className="link">
+      <Link href="/Components" className="link">
         Return to main
       </Link>
     </div>

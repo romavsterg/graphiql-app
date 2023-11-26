@@ -1,15 +1,38 @@
-import '../styles/Result.css';
-import { useNavigate } from 'react-router-dom';
+import styles from '../styles/Result.module.css';
 import DetailedCard from './DetailedCard';
 import { useGetParams } from '../Redux/hooks/useGetParams';
 import { useActions } from '../Redux/hooks/useActions';
-import { useGetProductsQuery } from '../Redux/api/api';
+import {
+  getProducts,
+  getRunningQueriesThunk,
+  useGetProductsQuery,
+} from '../Redux/api/api';
 import ProductCard from './ProductCard';
 import { product } from '../@types/types';
+import { useRouter } from 'next/router';
+import { wrapper } from '../Redux/store/store';
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    const search = context.params?.search;
+    const count = Number(context.params?.count);
+    const page = Number(context.params?.page);
+    if (
+      typeof search === 'string' &&
+      typeof count === 'number' &&
+      typeof page === 'number'
+    ) {
+      store.dispatch(
+        getProducts.initiate({ name: search, count: count, page: page })
+      );
+    }
+    await Promise.all(store.dispatch(getRunningQueriesThunk()));
+    return { props: { context } };
+  }
+);
 
 const Result = () => {
-  const navigate = useNavigate();
-
+  const router = useRouter();
   const { SetDetails } = useActions();
   const { search, countItems, details, page } = useGetParams();
   const response = useGetProductsQuery({
@@ -18,8 +41,6 @@ const Result = () => {
     page: page,
   });
 
-  // console.log(search, countItems, details, page);
-
   const res: {
     isLoading: boolean;
     data?: { products: product[] } | null | undefined;
@@ -27,26 +48,27 @@ const Result = () => {
     isLoading: response.isLoading,
     data: response.data,
   };
-
   const handleClick = () => {
+    console.log(details);
     if (details) {
       SetDetails('');
-      navigate(
-        `/Components/search/${
-          search ? search.replace('/', '%2F') : '*'
-        }?page=${page}&count=${countItems}`
+      router.push(
+        `/Components/search/${search.replace(
+          '/',
+          '%2F'
+        )}?page=${page}&count=${countItems}`
       );
     }
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       {res.isLoading ? (
-        <span className="loader">loading...</span>
+        <span className={styles.loader}>loading...</span>
       ) : (
         <>
-          {res.data && res.data.products ? (
-            <ul className="product-cards" onClick={handleClick}>
+          {res.data && res.data.products[0] ? (
+            <ul className={styles['product-cards']} onClick={handleClick}>
               {res.data.products.map((product: product) => (
                 <ProductCard
                   key={product.id}
