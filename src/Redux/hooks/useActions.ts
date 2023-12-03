@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
-import { actions as paramsActions } from '../store/data.slice';
+import { actions as dataActions } from '../store/data.slice';
 
 const rootActions = {
-  ...paramsActions,
+  ...dataActions,
 };
 
 export const useActions = () => {

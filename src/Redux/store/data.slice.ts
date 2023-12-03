@@ -9,6 +9,7 @@ export const initialState = {
   gender: 'male',
   policyAgreement: false,
   country: navigator.language.replace(/\w*-/, ''),
+  image: { path: '', name: '' },
 };
 
 export const dataSlice = createSlice({
@@ -38,6 +39,9 @@ export const dataSlice = createSlice({
     },
     SetCountry: (state, { payload: country }) => {
       state.country = country;
+    },
+    setImage: (state, { payload: image }) => {
+      state.image = image;
     },
   },
 });
