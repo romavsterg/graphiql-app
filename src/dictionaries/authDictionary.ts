@@ -1,5 +1,9 @@
 export const authDictioanry = {
   English: {
+    signIn: 'Sign in',
+    signUp: 'Sign up',
+    password: 'password',
+    email: 'email',
     'email-already-in-use': 'Email already in use',
     'Password is required': 'Password is required',
     'Email is required': 'Email is required',
@@ -9,6 +13,10 @@ export const authDictioanry = {
     'invalid-credential': 'Invalid-credential',
   },
   Russian: {
+    signIn: 'Войти в аккаунт',
+    signUp: 'Создать аккаунт',
+    password: 'пароль',
+    email: 'адрес электроннной почты',
     'email-already-in-use':
       'Данный почтовый адрес уже занят другим пользователем',
     'Password is required': 'Необходимо ввести пароль',

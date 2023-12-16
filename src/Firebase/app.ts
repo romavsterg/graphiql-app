@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  fetchSignInMethodsForEmail,
 } from 'firebase/auth';
 const firebaseConfig = {
   apiKey: 'AIzaSyBFELcyJ53Wppi8Va6opdstquYBPNpTDIs',
@@ -47,4 +48,4 @@ const logout = () => {
   signOut(auth);
 };
 
-export { auth, signUp, signIn, logout };
+export { auth, signUp, signIn, logout, fetchSignInMethodsForEmail };

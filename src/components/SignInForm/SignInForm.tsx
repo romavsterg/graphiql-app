@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { signIn } from '../../Firebase/app';
 import { schema } from '../../yup/schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Error from '../Errors/Error';
+import { useNavigate } from 'react-router-dom';
+import { authDictioanry } from '../../dictionaries/authDictionary';
+import { Context } from '../../Context/Context';
 
 export default function SignInForm() {
+  const context = useContext(Context);
+  const navigate = useNavigate();
   const [authError, setAuthError] = useState('');
   const {
     register,
@@ -31,24 +36,40 @@ export default function SignInForm() {
       setAuthError('');
       const token = await res?.user.getIdToken();
       localStorage.setItem('token', JSON.stringify(token));
+      navigate('/Components/main');
     }
   };
   return (
     <form className="signup-form" noValidate onSubmit={handleSubmit(onSubmit)}>
-      <h4>Sign in</h4>
+      <h4>
+        {
+          authDictioanry[context?.language as keyof typeof authDictioanry]
+            .signIn
+        }
+      </h4>
       <input
         type="password"
         {...register('password')}
         name="password"
-        placeholder="password"
+        placeholder={
+          authDictioanry[context?.language as keyof typeof authDictioanry]
+            .password
+        }
       />
       <input
         type="email"
         {...register('email')}
         name="email"
-        placeholder="email"
+        placeholder={
+          authDictioanry[context?.language as keyof typeof authDictioanry].email
+        }
       />
-      <button type="submit">Sign in</button>
+      <button type="submit">
+        {
+          authDictioanry[context?.language as keyof typeof authDictioanry]
+            .signIn
+        }
+      </button>
       {errors.password?.message && <Error error={errors.password.message} />}
       {errors.email?.message && <Error error={errors.email.message} />}
       {authError !== '' && <Error error={authError} />}
