@@ -15,13 +15,13 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
+        "name": "react"
       }
     ],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/styles/DetailedCard.css"],
+  "include": ["react-env.d.ts", "**/*.ts", "**/*.tsx", ".react/types/**/*.ts", "src/styles/DetailedCard.css"],
   "exclude": ["node_modules"]
 }

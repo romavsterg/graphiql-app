@@ -5,24 +5,23 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
 import ErrorElement from './components/ErrorElement';
 import MainPage from './pages/MainPage';
-import UncotrolledFormPage from './pages/UncotrolledFormPage';
-import ReactHookFormPage from './pages/ReactHookFormPage';
+import WelcomePage from './pages/WelcomePage/WelcomePage';
+import AuthPage from './pages/AuthPage/AuthPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/">
-      <Route
-        path="/Components/*"
-        element={<Layout />}
-        errorElement={<ErrorElement />}
-      >
-        <Route index element={<MainPage />} />
-        <Route path="uncontrolled-form" element={<UncotrolledFormPage />} />
-        <Route path="React-hook-form" element={<ReactHookFormPage />} />
-      </Route>
+    <Route
+      path="Components"
+      element={<Layout />}
+      errorElement={<ErrorElement />}
+    >
+      <Route index element={<WelcomePage />} />
+      <Route path="welcome" element={<WelcomePage />} />
+      <Route path="auth" element={<AuthPage />} />
+      <Route path="main" element={<MainPage />} />
     </Route>
   )
 );

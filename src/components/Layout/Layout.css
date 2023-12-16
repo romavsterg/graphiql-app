@@ -6,12 +6,6 @@
     gap: 15%;
 }
 
-header {
-    height: 10%;
-    display: flex;
-    justify-content: space-between;
-}
-
 main {
     height: 90%;
 }
