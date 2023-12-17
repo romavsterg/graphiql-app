@@ -35,16 +35,3 @@ input {
 input::placeholder {
     color: #9ba4da;
 }
-
-button {
-    cursor: pointer;
-    border: #9ba4da 2px solid;
-    outline: none;
-    padding: 7px;
-    background-color: #0d1649;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-}

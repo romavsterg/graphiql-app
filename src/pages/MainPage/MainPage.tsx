@@ -1,4 +1,4 @@
-import { auth, fetchSignInMethodsForEmail } from '../Firebase/app';
+import { auth, fetchSignInMethodsForEmail } from '../../Firebase/app';
 import React from 'react';
 import { redirect } from 'react-router-dom';
 

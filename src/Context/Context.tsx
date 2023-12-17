@@ -8,8 +8,9 @@ interface Props {
 }
 export const ContextProvider: React.FC<Props> = ({ children }) => {
   const [language, setLanguage] = useState<string>(
-    localStorage.getItem('language') || 'english'
+    localStorage.getItem('language') || 'English'
   );
+  localStorage.setItem('language', language);
 
   return (
     <Context.Provider

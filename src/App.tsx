@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import ErrorElement from './components/ErrorElement';
-import MainPage, { loader as mainPageLoader } from './pages/MainPage';
+import MainPage, { loader as mainPageLoader } from './pages/MainPage/MainPage';
 import WelcomePage from './pages/WelcomePage/WelcomePage';
-import AuthPage from './pages/AuthPage/AuthPage';
+import AuthPage, { loader as authLoader } from './pages/AuthPage/AuthPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
     >
       <Route index element={<WelcomePage />} />
       <Route path="welcome" element={<WelcomePage />} />
-      <Route path="auth" element={<AuthPage />} />
+      <Route path="auth" element={<AuthPage />} loader={authLoader} />
       <Route path="main" element={<MainPage />} loader={mainPageLoader} />
     </Route>
   )

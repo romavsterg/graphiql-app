@@ -1,7 +1,9 @@
-export const authDictioanry = {
+export const authDictionary = {
   English: {
     signIn: 'Sign in',
     signUp: 'Sign up',
+    signingIn: 'Signing in',
+    signingUp: 'Signing up',
     password: 'password',
     email: 'email',
     'email-already-in-use': 'Email already in use',
@@ -11,10 +13,15 @@ export const authDictioanry = {
     'Pasword must contain 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character':
       'Pasword must contain 1 number, 1 letter, 1 special character',
     'invalid-credential': 'Invalid-credential',
+    'wrong-password': 'Wrong password',
+    'user-not-found': 'The user with the entered email address does not exist',
+    invalidFields: 'Fill in all the input fields correctly',
   },
   Russian: {
     signIn: 'Войти в аккаунт',
     signUp: 'Создать аккаунт',
+    signingIn: 'Вход в аккаунт...',
+    signingUp: 'Создание аккаунта...',
     password: 'пароль',
     email: 'адрес электроннной почты',
     'email-already-in-use':
@@ -27,5 +34,9 @@ export const authDictioanry = {
       'Пароль должен минимум одну цифру, одну букву, один специальный символ',
     'invalid-credential':
       'Введен некорректный адрес электронной почты или пароль.',
+    'wrong-password': 'Введён неверный пароль',
+    'user-not-found':
+      'Пользователя с введенным адресом электронной почты не существует',
+    invalidFields: 'Заполните правильно все поля ввода',
   },
 };

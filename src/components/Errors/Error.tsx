@@ -1,14 +1,14 @@
 import { Context } from '../../Context/Context';
-import { authDictioanry } from '../../dictionaries/authDictionary';
 import React, { useContext } from 'react';
 
-export default function Error(Props: { error: string }) {
+export default function Error(Props: { error: string; dictionary: string }) {
   const context = useContext(Context);
+  const currentDictionary = JSON.parse(Props.dictionary);
   return (
-    <span className="password-error">
+    <span className="error">
       {
-        authDictioanry[context?.language as keyof typeof authDictioanry][
-          Props.error as keyof (typeof authDictioanry)[keyof typeof authDictioanry]
+        currentDictionary[context?.language as keyof typeof currentDictionary][
+          Props.error as keyof (typeof currentDictionary)[keyof typeof currentDictionary]
         ]
       }
     </span>
