@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './footer.css';
-import { Context } from '../../Context/Context';
-import { footerDictionary } from '../../dictionaries/footerDictionary';
+import { Context } from '../../../Context/Context';
+import { footerDictionary } from '../../../dictionaries/footerDictionary';
 
 export default function Footer() {
   const context = useContext(Context);

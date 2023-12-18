@@ -5,11 +5,15 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import Layout from './components/Layout/Layout';
-import ErrorElement from './components/ErrorElement';
-import MainPage, { loader as mainPageLoader } from './pages/MainPage/MainPage';
-import WelcomePage from './pages/WelcomePage/WelcomePage';
-import AuthPage, { loader as authLoader } from './pages/AuthPage/AuthPage';
+import Layout from '../Layout/Layout';
+import ErrorElement from '../ErrorElement';
+import MainPage, {
+  loader as mainPageLoader,
+} from '../../pages/MainPage/MainPage';
+import WelcomePage from '../../pages/WelcomePage/WelcomePage';
+import AuthPage, { loader as authLoader } from '../../pages/AuthPage/AuthPage';
+import './index.css';
+import NotFound from '../../pages/NotFoundPage/NotFound';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="welcome" element={<WelcomePage />} />
       <Route path="auth" element={<AuthPage />} loader={authLoader} />
       <Route path="main" element={<MainPage />} loader={mainPageLoader} />
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );

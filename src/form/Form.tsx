@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { UseFormRegister, FormState } from 'react-hook-form';
 import { Context } from '../Context/Context';
 import { authDictionary } from '../dictionaries/authDictionary';
-import Error from '../components/Errors/Error';
-import Input from '../components/Input/Input';
-import AuthButton from '../components/AuthButton/AuthButton';
+import Error from '../components/UI/Error/Error';
+import Input from '../components/UI/Input/Input';
+import AuthButton from '../components/UI/AuthButton/AuthButton';
 
 export default function Form(Props: {
   onSubmit: () => Promise<void>;

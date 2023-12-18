@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './WelcomePage.css';
 import { isSignedIn } from '../../utils/checkIsSignedIn';
-import Error from '../../components/Errors/Error';
+import Error from '../../components/UI/Error/Error';
 import { welcomeDictionary } from '../../dictionaries/welcomeDictionary';
 import { Context } from '../../Context/Context';
 

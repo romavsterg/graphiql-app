@@ -1,4 +1,4 @@
-import { Context } from '../../Context/Context';
+import { Context } from '../../../Context/Context';
 import React, { useContext } from 'react';
 
 export default function Error(Props: { error: string; dictionary: string }) {

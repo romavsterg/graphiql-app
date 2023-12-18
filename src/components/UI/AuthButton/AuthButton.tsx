@@ -1,5 +1,5 @@
-import { Context } from '../../Context/Context';
-import { authDictionary } from '../../dictionaries/authDictionary';
+import { Context } from '../../../Context/Context';
+import { authDictionary } from '../../../dictionaries/authDictionary';
 import React, { useContext } from 'react';
 import './AuthButton.css';
 
