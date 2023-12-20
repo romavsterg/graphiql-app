@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { contextType } from '../@types/types';
+import { contextType } from '../../@types/types';
 
 export const Context = React.createContext<contextType | null>(null);
 

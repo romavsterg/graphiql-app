@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './header.css';
-import { Context } from '../../../Context/Context';
+import { Context } from '../../Context/Context';
 import { headerDictionary } from '../../../dictionaries/headerDictionary';
 
 export default function Header() {

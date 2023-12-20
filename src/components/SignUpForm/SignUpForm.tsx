@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { signUp } from '../../Firebase/app';
-import { schema } from '../../yup/schema';
+import { signUp } from '../../utils/Firebase/app';
+import { schema } from '../../utils/yup/schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
-import Form from '../../form/Form';
+import Form from '../UI/Form/Form';
 
 export default function SignUpForm() {
   const navigate = useNavigate();

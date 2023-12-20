@@ -1,0 +1,31 @@
+h2 {
+    margin-top: 60px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.query-container {
+    display: flex;
+}
+
+.editor {
+    background-color: #282c34;
+    margin-top: 40px;
+    height: auto;
+    width: 90%;
+    overflow: hidden;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.cm-editor {
+    width: 100%;
+}
+
+.QueryResult, .QueryEditor {
+    width: 50%
+}

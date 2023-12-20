@@ -1,4 +1,4 @@
-import { auth } from '../Firebase/app';
+import { auth } from './Firebase/app';
 import { fetchSignInMethodsForEmail } from 'firebase/auth';
 
 export async function isSignedIn() {

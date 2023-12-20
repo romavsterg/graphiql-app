@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { UseFormRegister } from 'react-hook-form';
-import { Context } from '../../../Context/Context';
+import { Context } from '../../Context/Context';
 import { authDictionary } from '../../../dictionaries/authDictionary';
 
 export default function Input(Props: {

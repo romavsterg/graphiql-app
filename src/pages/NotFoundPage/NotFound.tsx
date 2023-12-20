@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Context } from '../../Context/Context';
+import { Context } from '../../components/Context/Context';
 import { NotFoundDictionary } from '../../dictionaries/notFoundDictionary';
 
 export default function NotFound() {

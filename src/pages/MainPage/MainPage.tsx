@@ -1,6 +1,9 @@
-import { auth, fetchSignInMethodsForEmail } from '../../Firebase/app';
 import React from 'react';
+import QueryEditor from '../../components/QueryEditor/QueryEditor';
+import QueryResult from '../../components/QueryResult/QueryResult';
+import { auth, fetchSignInMethodsForEmail } from '../../utils/Firebase/app';
 import { redirect } from 'react-router-dom';
+import './MainPage.css';
 
 export async function loader() {
   const token = localStorage.getItem('token')?.replace(/\'/g, '');
@@ -24,7 +27,11 @@ export async function loader() {
 export default function MainPage() {
   return (
     <>
-      <h4>Main Page</h4>
+      <h2>Main Page</h2>
+      <div className="query-container">
+        <QueryEditor />
+        <QueryResult />
+      </div>
     </>
   );
 }
