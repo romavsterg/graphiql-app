@@ -8,13 +8,13 @@ import './QueryResult.css';
 export default function QueryResult() {
   const { data } = useGetResult();
   return (
-    <div className="QueryResult">
+    <div className="Query-result">
       <h4>Query result</h4>
       <ReactCodeMirror
-        className="editor"
+        className="result"
         theme="dark"
         value={data !== '' ? prettify(JSON.stringify(data)) : undefined}
-        height="550px"
+        height="650px"
         width="100%"
         editable={false}
         extensions={[jsonLanguage]}

@@ -1,79 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import './QueryEditor.css';
 import { jsonLanguage } from '@codemirror/lang-json';
-import { prettify } from '../../utils/prettify';
+import Tools from '../Tools/tools';
+import { useGetQuery } from '../../utils/Redux/hooks/useGetQuery';
 import { useActions } from '../../utils/Redux/hooks/useActions';
 
 export default function QueryEditor() {
-  // const [value, setValue] = React.useState('#Start with something simple');
-  const [value, setValue] = React.useState(`{  allFilms(first:10){
-    edges{   node {
-
-        title
-        id    releaseDate
-      }   } 
-} 
-} `);
-  const { SetError, setResult } = useActions();
-  const onChange = React.useCallback((val: string) => {
-    setValue(val);
-  }, []);
-  const [apiUrl, setApitUrl] = useState(
-    'https://swapi-graphql.netlify.app/.netlify/functions/index'
+  // const [query, setquery] = React.useState('#Start with something simple');
+  const { setApiUrl, setQuery } = useActions();
+  const { query, apiUrl } = useGetQuery();
+  const handleQueryChange = React.useCallback(
+    (val: string) => {
+      setQuery(val);
+    },
+    [setQuery]
   );
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setApitUrl(e.currentTarget.value);
-  };
-
-  const executeQuery = async () => {
-    try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `query Query ${value}`,
-        }),
-      });
-      const json = await res.json();
-      console.log(json);
-      if (json.errors) {
-        SetError({ isError: true, message: json.errors[0].message });
-      } else {
-        setResult(json.data);
-        SetError({ isError: false, message: '' });
-      }
-    } catch (e) {
-      if (typeof e === 'string') {
-        SetError({ isError: true, message: e });
-      } else if (e instanceof Error) {
-        SetError({ isError: true, message: e.message });
-      }
-    }
-  };
-
-  const prettifyQuery = () => {
-    setValue(prettify(value));
+  const handleChangeApi = (e: React.FormEvent<HTMLSelectElement>) => {
+    setApiUrl(e.currentTarget.value);
   };
 
   return (
-    <div className="QueryEditor">
+    <div className="Query-editor">
       <h5>Query editor</h5>
-      <input type="text" value={apiUrl} onChange={handleChange} />
-      <button onClick={prettifyQuery}>Prettify the query</button>
+      <select value={apiUrl} onChange={handleChangeApi} name="api-url">
+        <option value="https://swapi-graphql.netlify.app/.netlify/functions/index">
+          https://swapi-graphql.netlify.app/.netlify/functions/index
+        </option>
+        <option value="https://countries.trevorblades.com/graphql">
+          https://countries.trevorblades.com/graphql
+        </option>
+      </select>
       <CodeMirror
         className="editor"
         theme="dark"
-        value={value}
-        onChange={onChange}
-        height="550px"
+        value={query}
+        onChange={handleQueryChange}
+        height="430px"
         width="100%"
         extensions={[jsonLanguage]}
-      />
-      <button onClick={executeQuery}>Query</button>
+      >
+        <Tools />
+      </CodeMirror>
     </div>
   );
 }

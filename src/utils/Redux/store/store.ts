@@ -5,10 +5,12 @@ import {
 } from '@reduxjs/toolkit';
 import { reducer as errorsReducer } from './errors.slice';
 import { reducer as resultReducer } from './result.slice';
+import { reducer as queryReducer } from './query.slice';
 
 export const rootReducer = combineReducers({
   errors: errorsReducer,
   result: resultReducer,
+  query: queryReducer,
 });
 
 export const store = configureStore({

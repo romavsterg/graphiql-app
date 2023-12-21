@@ -27,7 +27,6 @@ export async function loader() {
 export default function MainPage() {
   return (
     <>
-      <h2>Main Page</h2>
       <div className="query-container">
         <QueryEditor />
         <QueryResult />

@@ -1,1 +1,78 @@
+.btn {
+    border: #9ba4da 2px solid;
+    font-size: 30px;
+    cursor: pointer;
+    outline: none;
+    padding: 7px;
+    background-color: #0d1649;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
 
+.btns {
+    width: fit-content;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1;
+}
+
+.btns .btn {
+    width: 50px;
+    height: 50px;
+}
+
+.tools {
+    height: 72px;
+    width: 100%;
+    padding: 15px;
+    background-color: #0d1649;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+.tools-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tools-btns button {
+    font-size: 17px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+.tools-btns button:hover {
+    background: #9ba4da;
+    color: #0d1649;
+}
+
+.opened {
+    height: 295px;
+}
+
+.variables {
+    height: 150px;
+    overflow: hidden;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}

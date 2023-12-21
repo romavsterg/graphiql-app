@@ -1,31 +1,54 @@
-h2 {
-    margin-top: 60px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .query-container {
+    margin-top: 30px;
     display: flex;
 }
 
-.editor {
+.editor, .result {
+    position: relative;
     background-color: #282c34;
     margin-top: 40px;
     height: auto;
     width: 90%;
+    height: 573px;
     overflow: hidden;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+}
+
+.result {
+    width: 100%;
+}
+
+.cm-scroller {
+    z-index: 1;
+    background-color: #282c34;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #9ba4da;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #9ba4da;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #282c34;
 }
 
 .cm-editor {
     width: 100%;
 }
 
-.QueryResult, .QueryEditor {
+.Query-result, .Query-editor {
     width: 50%
 }
