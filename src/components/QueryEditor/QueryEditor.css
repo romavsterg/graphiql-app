@@ -29,8 +29,7 @@
 }
 
 .tools {
-    /* height: 72px; */
-    max-height: 295px;
+    max-height: 395px;
     width: 100%;
     padding: 15px;
     background-color: #0d1649;
@@ -65,7 +64,7 @@
 }
 
 .opened {
-    height: 150px;
+    height: 356px;
 }
 
 .variables .headers {

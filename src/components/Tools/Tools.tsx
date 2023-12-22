@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { prettify } from '../../utils/prettify';
 import { useActions } from '../../utils/Redux/hooks/useActions';
 import { executeQuery } from '../../utils/executeQuery';
 import { useGetQuery } from '../../utils/Redux/hooks/useGetQuery';
 import ReactCodeMirror from '@uiw/react-codemirror';
+import { Context } from '../Context/Context';
+import { mainDictionary } from '../../dictionaries/mainDictionary';
 
 export default function Tools() {
+  const context = useContext(Context);
   const [variables, setVariables] = useState({ opened: false, content: '' });
   const [headers, setHeaders] = useState({ opened: false, content: '' });
   const { SetError, setResult, setQuery } = useActions();
@@ -45,22 +48,35 @@ export default function Tools() {
   }, []);
 
   return (
-    <div className="tools">
+    <div
+      className={`tools ${variables.opened || headers.opened ? 'opened' : ''}`}
+    >
       <div className="tools-btns">
         <button className="btn variables-btn" onClick={handleEnableVariables}>
-          Variables
+          {
+            mainDictionary[context?.language as keyof typeof mainDictionary]
+              .variables
+          }
         </button>
         <button className="btn variables-btn" onClick={handleEnableHeaders}>
-          Headers
+          {
+            mainDictionary[context?.language as keyof typeof mainDictionary]
+              .headers
+          }
         </button>
       </div>
       {variables.opened && (
         <div className="variables">
-          <p>Variables</p>
+          <p>
+            {
+              mainDictionary[context?.language as keyof typeof mainDictionary]
+                .variables
+            }
+          </p>
           <ReactCodeMirror
             value={variables.content}
             onChange={handleVariablesChange}
-            className={`variables-editor ${variables.opened ? 'opened' : ''}`}
+            className="variables-editor"
             height="150px"
             theme="dark"
           />
@@ -68,11 +84,16 @@ export default function Tools() {
       )}
       {headers.opened && (
         <div className="headers">
-          <p>Headers</p>
+          <p>
+            {
+              mainDictionary[context?.language as keyof typeof mainDictionary]
+                .headers
+            }
+          </p>
           <ReactCodeMirror
             value={headers.content}
             onChange={handleHeadersChange}
-            className={`headers-editor ${variables.opened ? 'opened' : ''}`}
+            className="headers-editor"
             height="150px"
             theme="dark"
           />

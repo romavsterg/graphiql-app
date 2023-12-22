@@ -21,6 +21,18 @@
     justify-content: space-between;
 }
 
+.apiUrl-change {
+    position: relative;
+    z-index: 1;
+    width: 723px;
+    display: flex;
+    gap: 10px;
+}
+
+.apiUrl-change p {
+    width: auto;
+}
+
 .result {
     width: 100%;
 }
@@ -51,4 +63,7 @@
 
 .Query-result, .Query-editor {
     width: 50%
+}
+.Query-result h4 {
+    margin-bottom: 65px;
 }

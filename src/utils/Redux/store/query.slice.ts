@@ -1,14 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
-  query: `{  allFilms(first:10){
-    edges{   node {
-
-        title
-        id    releaseDate
-      }   } 
-} 
-} `,
+  query: ``,
   apiUrl: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
 };
 

@@ -2,7 +2,7 @@ export const executeQuery = async (
   apiUrl: string,
   value: string,
   variables = '',
-  headers: ''
+  headers = ''
 ) => {
   try {
     const res = await fetch(apiUrl, {
