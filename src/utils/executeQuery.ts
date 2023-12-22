@@ -1,13 +1,14 @@
 export const executeQuery = async (
   apiUrl: string,
   value: string,
-  variables = ''
+  variables = '',
+  headers: ''
 ) => {
   try {
-    console.log(variables);
     const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
+        ...(headers ? JSON.parse(headers) : null),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
