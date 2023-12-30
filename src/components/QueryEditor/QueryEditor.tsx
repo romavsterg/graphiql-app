@@ -19,7 +19,7 @@ export default function QueryEditor() {
     [setQuery]
   );
 
-  const handleChangeApi = (e: React.FormEvent<HTMLSelectElement>) => {
+  const handleChangeApi = (e: React.FormEvent<HTMLInputElement>) => {
     setApiUrl(e.currentTarget.value);
   };
 
@@ -38,14 +38,13 @@ export default function QueryEditor() {
               .ApiUrl
           }
         </p>
-        <select value={apiUrl} onChange={handleChangeApi} name="api-url">
-          <option value="https://swapi-graphql.netlify.app/.netlify/functions/index">
-            https://swapi-graphql.netlify.app/.netlify/functions/index
-          </option>
-          <option value="https://countries.trevorblades.com/graphql">
-            https://countries.trevorblades.com/graphql
-          </option>
-        </select>
+        <input
+          type="text"
+          value={apiUrl}
+          onChange={handleChangeApi}
+          className="apiUrl-change"
+          placeholder="API URL"
+        />
       </div>
       <CodeMirror
         className="editor"
