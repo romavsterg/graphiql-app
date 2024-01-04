@@ -11,6 +11,7 @@ export default function Tools() {
   const context = useContext(Context);
   const [variables, setVariables] = useState({ opened: false, content: '' });
   const [headers, setHeaders] = useState({ opened: false, content: '' });
+  const [Schema, setSchema] = useState({ opened: false, content: '' });
   const { SetError, setResult, setQuery } = useActions();
   const { query, apiUrl } = useGetQuery();
   const handleExecute = async () => {
@@ -46,6 +47,37 @@ export default function Tools() {
   const handleHeadersChange = React.useCallback((val: string) => {
     setHeaders({ opened: true, content: val });
   }, []);
+
+  const getSchema = async () => {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `{
+              __schema {
+                queryType {
+                  fields{
+                    name
+                  }
+                }
+              }
+            }`,
+      }),
+    });
+    const schema: string[] = [];
+    const { data } = await response.json();
+    data.__schema.queryType.fields.forEach((field: { name: string }) => {
+      schema.push(field.name);
+    });
+    setSchema({
+      opened: true,
+      content: schema.toString().replace(/\,/g, '\n'),
+    });
+    setHeaders({ opened: false, content: headers.content });
+    setVariables({ opened: false, content: variables.content });
+  };
 
   return (
     <div
@@ -99,12 +131,32 @@ export default function Tools() {
           />
         </div>
       )}
+      {Schema.opened && (
+        <div className="headers">
+          <p>
+            {
+              mainDictionary[context?.language as keyof typeof mainDictionary]
+                .schema
+            }
+          </p>
+          <ReactCodeMirror
+            value={Schema.content}
+            editable={false}
+            className="headers-editor"
+            height="150px"
+            theme="dark"
+          />
+        </div>
+      )}
       <div className="btns">
         <button className="btn btn-query" onClick={handleExecute}>
           &#9658;
         </button>
         <button className="btn btn-prettify" onClick={prettifyQuery}>
           <img width="30px" height="30px" src="/src/icons/broomstick.svg" />
+        </button>
+        <button className="btn btn-get-schema" onClick={getSchema}>
+          <img width="30px" height="30px" src="/src/icons/book.svg" />
         </button>
       </div>
     </div>

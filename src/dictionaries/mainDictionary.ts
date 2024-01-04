@@ -6,6 +6,7 @@ export const mainDictionary = {
     QueryResult: 'Результат запроса',
     headers: 'Заголовки запроса',
     variables: 'Переменные запроса',
+    schema: 'Схема API',
   },
   English: {
     error: 'Error: ',
@@ -14,5 +15,6 @@ export const mainDictionary = {
     QueryResult: 'Query result',
     headers: 'Headers',
     variables: 'Variables',
+    schema: 'Api schema',
   },
 };
