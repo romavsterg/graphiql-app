@@ -26,6 +26,11 @@
     "react-router-dom": "^6.21.0",
     "yup": "^1.3.3"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm lint"
+    }
+  },
   "devDependencies": {
     "@types/react": "^18.2.37",
     "@types/redux-logger": "^3.0.12",
