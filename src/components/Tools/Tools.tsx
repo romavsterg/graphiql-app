@@ -63,6 +63,9 @@ export default function Tools() {
                 name
                 args {
                   name
+                  type {
+                    name
+                  }
                 }
               }
             }
@@ -72,10 +75,16 @@ export default function Tools() {
     });
     const schema: string[] = [];
     const { data } = await response.json();
-    // console.log(data.__schema.queryType.fields);
+    console.log(data.__schema.queryType.fields);
     data.__schema.queryType.fields.forEach(
-      (field: { name: string; args: [{ name: string }] }) => {
-        const args = field.args.map((arg: { name: string }) => arg.name);
+      (field: {
+        name: string;
+        args: [{ name: string; type: { name: string } }];
+      }) => {
+        const args = field.args.map(
+          (arg: { name: string; type: { name: string } }) =>
+            `${arg.name}: ${arg.type.name}`
+        );
         schema.push(field.name + `(${args.toString().replace(/\,/g, ', ')})\n`);
       }
     );
