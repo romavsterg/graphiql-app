@@ -6,6 +6,7 @@ import { useGetQuery } from '../../utils/Redux/hooks/useGetQuery';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { Context } from '../Context/Context';
 import { mainDictionary } from '../../dictionaries/mainDictionary';
+// import { introspectionQuery } from 'graphql';
 
 export default function Tools() {
   const context = useContext(Context);
@@ -56,24 +57,31 @@ export default function Tools() {
       },
       body: JSON.stringify({
         query: `{
-              __schema {
-                queryType {
-                  fields{
-                    name
-                  }
+          __schema {
+            queryType {
+              fields {
+                name
+                args {
+                  name
                 }
               }
-            }`,
+            }
+          }
+        }`,
       }),
     });
     const schema: string[] = [];
     const { data } = await response.json();
-    data.__schema.queryType.fields.forEach((field: { name: string }) => {
-      schema.push(field.name);
-    });
+    // console.log(data.__schema.queryType.fields);
+    data.__schema.queryType.fields.forEach(
+      (field: { name: string; args: [{ name: string }] }) => {
+        const args = field.args.map((arg: { name: string }) => arg.name);
+        schema.push(field.name + `(${args.toString().replace(/\,/g, ', ')})\n`);
+      }
+    );
     setSchema({
       opened: true,
-      content: schema.toString().replace(/\,/g, '\n'),
+      content: schema.toString(),
     });
     setHeaders({ opened: false, content: headers.content });
     setVariables({ opened: false, content: variables.content });
@@ -140,7 +148,7 @@ export default function Tools() {
             }
           </p>
           <ReactCodeMirror
-            value={Schema.content}
+            value={Schema.content.replace(/\,(\w)/g, '$1')}
             editable={false}
             className="headers-editor"
             height="150px"
