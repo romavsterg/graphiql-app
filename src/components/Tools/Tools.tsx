@@ -63,13 +63,27 @@ export default function Tools() {
 
   const getSchema = async () => {
     const fields = await getFields(apiUrl);
-    const schema = fields.__schema.types
-      .filter((type: { name: string }) => type.name === 'Root')[0]
-      .fields.map((field: { name: string }) => field.name);
-    setSchema({
-      opened: !Schema.opened,
-      content: schema,
-    });
+    if (
+      fields.__schema.types.filter(
+        (type: { name: string }) => type.name === 'Root'
+      )[0]
+    ) {
+      const schema = fields.__schema.types
+        .filter((type: { name: string }) => type.name === 'Root')[0]
+        .fields.map((field: { name: string }) => field.name);
+      setSchema({
+        opened: !Schema.opened,
+        content: schema,
+      });
+    } else {
+      const schema = fields.__schema.types.map(
+        (field: { name: string }) => field.name
+      );
+      setSchema({
+        opened: !Schema.opened,
+        content: schema,
+      });
+    }
     setFieldType({
       opened: false,
       content: { fields: [''], path: '', name: '', end: false },

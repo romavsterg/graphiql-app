@@ -58,16 +58,32 @@ export const getFieldTypeByName = async (
       end: fieldType.ofType === null || fieldType.ofType.fields === null,
     };
   } else {
-    const typeName = typesSchema.__schema.types
-      .filter((type: { name: string }) => type.name === 'Root')[0]
-      .fields.filter((field: { name: string }) => field.name === fieldName)[0]
-      .type.name;
-    const fieldType = typesSchema.__schema.types.filter(
-      (type: { name: string }) => type.name === typeName
-    )[0];
-    const fields = fieldType.fields.map(
-      (field: { name: string }) => field.name
-    );
+    let typeName: string;
+    let fields = [''];
+    let fieldType = { name: '', fields: [{ name: '' }] };
+    if (
+      typesSchema.__schema.types.filter(
+        (type: { name: string }) => type.name === 'Root'
+      )[0]
+    ) {
+      typeName = typesSchema.__schema.types
+        .filter((type: { name: string }) => type.name === 'Root')[0]
+        .fields.filter((field: { name: string }) => field.name === fieldName)[0]
+        .type.name;
+      fieldType = typesSchema.__schema.types.filter(
+        (type: { name: string }) => type.name === typeName
+      )[0];
+      fields = fieldType.fields.map((field: { name: string }) => field.name);
+    } else {
+      console.log(typesSchema.__schema.types);
+      fieldType = typesSchema.__schema.types.filter(
+        (type: { name: string }) => type.name === fieldName
+      )[0];
+      fields =
+        fieldType.fields !== null
+          ? fieldType.fields.map((field: { name: string }) => field.name)
+          : ['No fields found'];
+    }
     return {
       name: fieldType.name,
       fields,
