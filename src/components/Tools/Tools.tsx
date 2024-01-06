@@ -6,13 +6,17 @@ import { useGetQuery } from '../../utils/Redux/hooks/useGetQuery';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { Context } from '../Context/Context';
 import { mainDictionary } from '../../dictionaries/mainDictionary';
-// import { introspectionQuery } from 'graphql';
+import { getFieldTypeByName, getFields } from '../../utils/getFields';
 
 export default function Tools() {
   const context = useContext(Context);
   const [variables, setVariables] = useState({ opened: false, content: '' });
   const [headers, setHeaders] = useState({ opened: false, content: '' });
-  const [Schema, setSchema] = useState({ opened: false, content: '' });
+  const [Schema, setSchema] = useState({ opened: false, content: [''] });
+  const [FieldType, setFieldType] = useState({
+    opened: false,
+    content: { fields: [''], name: '', path: '', end: false },
+  });
   const { SetError, setResult, setQuery } = useActions();
   const { query, apiUrl } = useGetQuery();
   const handleExecute = async () => {
@@ -32,10 +36,18 @@ export default function Tools() {
   const handleEnableVariables = () => {
     setVariables({ opened: !variables.opened, content: variables.content });
     setHeaders({ opened: false, content: headers.content });
+    setSchema({
+      opened: false,
+      content: Schema.content,
+    });
   };
   const handleEnableHeaders = () => {
     setHeaders({ opened: !headers.opened, content: headers.content });
     setVariables({ opened: false, content: variables.content });
+    setSchema({
+      opened: false,
+      content: Schema.content,
+    });
   };
 
   const prettifyQuery = () => {
@@ -50,50 +62,34 @@ export default function Tools() {
   }, []);
 
   const getSchema = async () => {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: `{
-          __schema {
-            queryType {
-              fields {
-                name
-                args {
-                  name
-                  type {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }`,
-      }),
-    });
-    const schema: string[] = [];
-    const { data } = await response.json();
-    console.log(data.__schema.queryType.fields);
-    data.__schema.queryType.fields.forEach(
-      (field: {
-        name: string;
-        args: [{ name: string; type: { name: string } }];
-      }) => {
-        const args = field.args.map(
-          (arg: { name: string; type: { name: string } }) =>
-            `${arg.name}: ${arg.type.name}`
-        );
-        schema.push(field.name + `(${args.toString().replace(/\,/g, ', ')})\n`);
-      }
-    );
+    const fields = await getFields(apiUrl);
+    const schema = fields.__schema.types
+      .filter((type: { name: string }) => type.name === 'Root')[0]
+      .fields.map((field: { name: string }) => field.name);
     setSchema({
-      opened: true,
-      content: schema.toString(),
+      opened: !Schema.opened,
+      content: schema,
+    });
+    setFieldType({
+      opened: false,
+      content: { fields: [''], path: '', name: '', end: false },
     });
     setHeaders({ opened: false, content: headers.content });
     setVariables({ opened: false, content: variables.content });
+  };
+
+  const getFieldSchema = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const fieldName =
+      e.currentTarget.textContent
+        ?.replace(/(\w)\(.*\)\n/, '$1')
+        .replace(/\n/, '') || '';
+    const { fields, name, path, end } = await getFieldTypeByName(
+      apiUrl,
+      fieldName,
+      FieldType.content.path.split('/')
+    );
+    setFieldType({ opened: true, content: { fields, name, path, end } });
+    setSchema({ opened: false, content: Schema.content });
   };
 
   return (
@@ -149,20 +145,41 @@ export default function Tools() {
         </div>
       )}
       {Schema.opened && (
-        <div className="headers">
+        <div className="schema">
           <p>
             {
               mainDictionary[context?.language as keyof typeof mainDictionary]
                 .schema
             }
           </p>
-          <ReactCodeMirror
-            value={Schema.content.replace(/\,(\w)/g, '$1')}
-            editable={false}
-            className="headers-editor"
-            height="150px"
-            theme="dark"
-          />
+          <div className="fields">
+            {Schema.content.map((field) => (
+              <button
+                className="btn field-btn"
+                key={field}
+                onClick={getFieldSchema}
+              >
+                {field.toString()}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      {FieldType.opened && (
+        <div className="schema">
+          <p>{FieldType.content.name}</p>
+          <div className="fields">
+            {FieldType.content.fields.map((field) => (
+              <button
+                className="btn field-btn"
+                key={field}
+                onClick={getFieldSchema}
+                disabled={FieldType.content.end}
+              >
+                {field.toString()}
+              </button>
+            ))}
+          </div>
         </div>
       )}
       <div className="btns">

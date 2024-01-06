@@ -30,7 +30,6 @@ h5 {
     position: relative;
     z-index: 1;
     width: 100%;
-    /* max-width: ; */
     display: flex;
     gap: 10px;
     font-size: 18px;
