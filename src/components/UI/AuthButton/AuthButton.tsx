@@ -3,10 +3,15 @@ import { authDictionary } from '../../../dictionaries/authDictionary';
 import React, { useContext } from 'react';
 import './AuthButton.css';
 
-export default function AuthButton(Props: { method: string; status: string }) {
+export default function AuthButton(Props: {
+  method: string;
+  status: string;
+  testId: string;
+}) {
   const context = useContext(Context);
   return (
     <button
+      data-testid={Props.testId}
       type="submit"
       className={`auth-btn ${
         Props.status === 'inValid' || Props.status === 'submitting'

@@ -22,6 +22,7 @@ form {
 
 input {
     border: #9ba4da 2px solid;
+    width: 100%;
     outline: none;
     padding: 7px;
     background-color: #0d1649;

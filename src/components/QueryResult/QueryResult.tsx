@@ -21,6 +21,7 @@ export default function QueryResult() {
       <ReactCodeMirror
         className="result"
         theme="dark"
+        id="result"
         value={data !== '' ? prettify(JSON.stringify(data)) : undefined}
         height="650px"
         width="100%"

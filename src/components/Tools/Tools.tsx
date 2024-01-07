@@ -7,6 +7,7 @@ import ReactCodeMirror from '@uiw/react-codemirror';
 import { Context } from '../Context/Context';
 import { mainDictionary } from '../../dictionaries/mainDictionary';
 import { getFieldTypeByName, getFields } from '../../utils/getFields';
+import { jsonLanguage } from '@codemirror/lang-json';
 
 export default function Tools() {
   const context = useContext(Context);
@@ -133,9 +134,11 @@ export default function Tools() {
             }
           </p>
           <ReactCodeMirror
+            id="vars"
             value={variables.content}
             onChange={handleVariablesChange}
             className="variables-editor"
+            extensions={[jsonLanguage]}
             height="150px"
             theme="dark"
           />
@@ -150,10 +153,12 @@ export default function Tools() {
             }
           </p>
           <ReactCodeMirror
+            id="headers"
             value={headers.content}
             onChange={handleHeadersChange}
             className="headers-editor"
             height="150px"
+            extensions={[jsonLanguage]}
             theme="dark"
           />
         </div>

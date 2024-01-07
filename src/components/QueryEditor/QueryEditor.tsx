@@ -47,6 +47,7 @@ export default function QueryEditor() {
         />
       </div>
       <CodeMirror
+        id="editor"
         className="editor"
         theme="dark"
         value={query}

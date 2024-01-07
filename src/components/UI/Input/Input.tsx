@@ -9,12 +9,14 @@ export default function Input(Props: {
     email: string;
     password: string;
   }>;
+  testId: string;
 }) {
   const context = useContext(Context);
   return (
     <input
       {...Props.register(Props.type)}
       type={Props.type}
+      data-testid={Props.testId}
       name={Props.type}
       placeholder={
         authDictionary[context?.language as keyof typeof authDictionary][

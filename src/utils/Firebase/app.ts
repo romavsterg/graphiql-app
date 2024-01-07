@@ -18,6 +18,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+export const getUserByEmail = async (email: string) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      'your password here'
+    );
+    const user = userCredential.user;
+    return user;
+  } catch (error) {
+    console.error(`Error getting user by email: ${error}`);
+  }
+};
+
 const signIn = async (email: string, password: string) => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, password);
@@ -48,4 +62,4 @@ const logout = () => {
   signOut(auth);
 };
 
-export { auth, signUp, signIn, logout, fetchSignInMethodsForEmail };
+export { auth, app, signUp, signIn, logout, fetchSignInMethodsForEmail };
