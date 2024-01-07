@@ -4,10 +4,10 @@ import { useActions } from '../../utils/Redux/hooks/useActions';
 import { executeQuery } from '../../utils/executeQuery';
 import { useGetQuery } from '../../utils/Redux/hooks/useGetQuery';
 import ReactCodeMirror from '@uiw/react-codemirror';
+import { langs } from '@uiw/codemirror-extensions-langs';
 import { Context } from '../Context/Context';
 import { mainDictionary } from '../../dictionaries/mainDictionary';
 import { getFieldTypeByName, getFields } from '../../utils/getFields';
-import { jsonLanguage } from '@codemirror/lang-json';
 
 export default function Tools() {
   const context = useContext(Context);
@@ -138,7 +138,7 @@ export default function Tools() {
             value={variables.content}
             onChange={handleVariablesChange}
             className="variables-editor"
-            extensions={[jsonLanguage]}
+            extensions={[langs.json()]}
             height="150px"
             theme="dark"
           />
@@ -158,7 +158,7 @@ export default function Tools() {
             onChange={handleHeadersChange}
             className="headers-editor"
             height="150px"
-            extensions={[jsonLanguage]}
+            extensions={[langs.json()]}
             theme="dark"
           />
         </div>

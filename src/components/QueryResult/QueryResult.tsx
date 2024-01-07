@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { prettify } from '../../utils/prettify';
 import { useGetResult } from '../../utils/Redux/hooks/useGetResult';
-import { jsonLanguage } from '@codemirror/lang-json';
+import { langs } from '@uiw/codemirror-extensions-langs';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import './QueryResult.css';
 import { Context } from '../Context/Context';
@@ -26,7 +26,7 @@ export default function QueryResult() {
         height="650px"
         width="100%"
         editable={false}
-        extensions={[jsonLanguage]}
+        extensions={[langs.json()]}
       />
     </div>
   );

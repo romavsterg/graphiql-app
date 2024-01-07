@@ -13,9 +13,9 @@
     "test": "npx vitest run --coverage"
   },
   "dependencies": {
-    "@codemirror/lang-json": "^6.0.1",
     "@hookform/resolvers": "^3.3.2",
     "@reduxjs/toolkit": "^1.9.7",
+    "@uiw/codemirror-extensions-langs": "^4.21.21",
     "@uiw/react-codemirror": "^4.21.21",
     "graphql": "^16.8.1",
     "msw": "^2.0.12",

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
+import { langs } from '@uiw/codemirror-extensions-langs';
 import './QueryEditor.css';
-import { jsonLanguage } from '@codemirror/lang-json';
 import Tools from '../Tools/Tools';
 import { useGetQuery } from '../../utils/Redux/hooks/useGetQuery';
 import { useActions } from '../../utils/Redux/hooks/useActions';
@@ -54,7 +54,7 @@ export default function QueryEditor() {
         onChange={handleQueryChange}
         height="430px"
         width="100%"
-        extensions={[jsonLanguage]}
+        extensions={[langs.json()]}
       >
         <Tools />
       </CodeMirror>
