@@ -42,7 +42,7 @@ export default function WelcomePage() {
       ) : error !== '' ? (
         <Error error={error} dictionary={JSON.stringify(welcomeDictionary)} />
       ) : signedIn ? (
-        <Link to={'/Components/main'}>
+        <Link to={'/graphiql-app/main'}>
           {
             welcomeDictionary[
               context?.language as keyof typeof welcomeDictionary
@@ -50,7 +50,7 @@ export default function WelcomePage() {
           }
         </Link>
       ) : (
-        <Link className="auth-link" to={'/Components/auth'}>
+        <Link className="auth-link" to={'/graphiql-app/auth'}>
           {
             welcomeDictionary[
               context?.language as keyof typeof welcomeDictionary

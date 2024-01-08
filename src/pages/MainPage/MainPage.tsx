@@ -18,10 +18,10 @@ export async function loader() {
         return null;
       }
     } catch (err) {
-      return redirect('/Components/auth');
+      return redirect('/graphiql-app/auth');
     }
   }
-  return redirect('/Components/auth');
+  return redirect('/graphiql-app/auth');
 }
 
 export default function MainPage() {

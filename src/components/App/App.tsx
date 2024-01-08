@@ -18,7 +18,7 @@ import NotFound from '../../pages/NotFoundPage/NotFound';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
-      path="Components"
+      path="graphiql-app"
       element={<Layout />}
       errorElement={<ErrorElement />}
     >

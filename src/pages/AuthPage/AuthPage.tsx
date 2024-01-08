@@ -8,7 +8,7 @@ import { redirect } from 'react-router-dom';
 export async function loader() {
   const isUserSignedIn = await isSignedIn();
   if (isUserSignedIn) {
-    return redirect('/Components/main');
+    return redirect('/graphiql-app/main');
   }
   return null;
 }

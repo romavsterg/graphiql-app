@@ -16,7 +16,7 @@ export default function Header() {
       <header>
         <h1>GraphiQL</h1>
         <nav>
-          <Link to="/Components/welcome">
+          <Link to="/graphiql-app/welcome">
             {context?.language === 'English'
               ? headerDictionary['English'].links[0]
               : headerDictionary['Russian'].links[0]}

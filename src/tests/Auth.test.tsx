@@ -19,7 +19,7 @@ test('signs in a user', async () => {
           <Routes>
             <Route index element={<AuthPage />} loader={authLoader} />
             <Route
-              path="Components/main"
+              path="graphiql-app/main"
               element={<MainPage />}
               loader={mainPageLoader}
             />
@@ -45,5 +45,4 @@ test('signs in a user', async () => {
   screen.debug();
   console.log(localStorage.getItem('token'));
   await waitForElementToBeRemoved(submitButton);
-  // screen.debug();
 });

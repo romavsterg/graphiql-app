@@ -26,7 +26,7 @@ export default function SignUpForm() {
       setAuthError('');
       const token = await res?.user.getIdToken();
       localStorage.setItem('token', JSON.stringify(token));
-      navigate('/Components/main');
+      navigate('/graphiql-app/main');
     }
   };
   return (

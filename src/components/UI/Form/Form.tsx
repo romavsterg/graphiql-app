@@ -31,20 +31,16 @@ export default function Form(Props: {
           ]
         }
       </h5>
-      {/* <label htmlFor="email"> */}
       <Input
         type="email"
         testId={Props.method + 'Email'}
         register={Props.register}
       />
-      {/* </label> */}
-      {/* <label htmlFor="password"> */}
       <Input
         type="password"
         testId={Props.method + 'Password'}
         register={Props.register}
       />
-      {/* </label> */}
       {errors.map((error) => {
         if (typeof error === 'string' && error !== '') {
           return (
