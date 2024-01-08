@@ -10,7 +10,8 @@
     "format:fix": "prettier --check ./**/*.{ts,tsx,css,md,json}'",
     "deploy": "npm run build && gh-pages -d dist",
     "dev-test": "vitest",
-    "test": "npx vitest run --coverage"
+    "test": "npx vitest run --coverage",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -60,7 +61,7 @@
     "eslint-prettier": "^0.0.0-empty",
     "firebase": "^10.7.1",
     "gh-pages": "^6.0.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.0",
     "jsdom": "^22.1.0",
     "lint-staged": "^12.4.1",
     "prettier": "^3.0.3",
