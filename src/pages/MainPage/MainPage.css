@@ -1,0 +1,79 @@
+h5 {
+    margin-bottom: 10px;
+}
+
+.query-container {
+    margin-top: 30px;
+    display: flex;
+    gap: 50px;
+}
+
+.editor, .result {
+    position: relative;
+    background-color: #282c34;
+    margin-top: 40px;
+    height: auto;
+    width: 100%;
+    height: 573px;
+    overflow: hidden;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+}
+
+.apiUrl-change {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.apiUrl-change p {
+    width: auto;
+}
+
+.cm-scroller {
+    z-index: 1;
+    background-color: #282c34;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #9ba4da;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #9ba4da;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #282c34;
+}
+
+.cm-editor {
+    width: 100%;
+}
+
+.Query-result, .Query-editor {
+    height: 90%;
+    width: 50%;
+    border: #282c34 solid 2px;
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.Query-result h4 {
+    margin-bottom: 102px;
+}
